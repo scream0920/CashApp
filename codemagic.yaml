@@ -1,0 +1,19 @@
+workflows:
+  build-ios:
+    name: Build iOS .ipa
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+    scripts:
+      - name: Get dependencies
+        script: flutter pub get
+      - name: Build iOS .ipa
+        script: flutter build ios --release --no-codesign
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - build/ios/ipa/*.app
+    publishing:
+      email:
+        recipients:
+          - screamott1@email.com
