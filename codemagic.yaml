@@ -1,18 +1,22 @@
 workflows:
   build-ios:
-    name: Build iOS .ipa
+    name: Build iOS from monorepo
     max_build_duration: 60
     environment:
       flutter: stable
       xcode: latest
     scripts:
       - name: Get dependencies
-        script: flutter pub get
-      - name: Build iOS .ipa
-        script: flutter build ios --release --no-codesign
+        script: |
+          cd apps/cashapp_flutter
+          flutter pub get
+      - name: Build iOS
+        script: |
+          cd apps/cashapp_flutter
+          flutter build ios --release --no-codesign
     artifacts:
-      - build/ios/ipa/*.ipa
-      - build/ios/ipa/*.app
+      - apps/cashapp_flutter/build/ios/ipa/*.ipa
+      - apps/cashapp_flutter/build/ios/ipa/*.app
     publishing:
       email:
         recipients:
